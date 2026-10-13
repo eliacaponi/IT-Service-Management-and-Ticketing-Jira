@@ -1,0 +1,458 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="IT support lab case documenting a Windows 11 internet connectivity investigation.">
+    <title>INC-001 — Internet Connectivity Issue | Caponi IT Lab</title>
+
+    <style>
+        :root {
+            --bg: #f4f7fb;
+            --surface: #ffffff;
+            --text: #1f2937;
+            --muted: #64748b;
+            --border: #dbe3ee;
+            --accent: #2563eb;
+            --accent-light: #eff6ff;
+            --warning: #92400e;
+            --warning-bg: #fffbeb;
+            --success: #166534;
+            --success-bg: #f0fdf4;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 32px 16px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                         Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            background: var(--bg);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 28px;
+        }
+
+        .brand {
+            color: var(--accent);
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 10px 0;
+            font-size: clamp(1.8rem, 5vw, 2.6rem);
+            line-height: 1.2;
+        }
+
+        h2 {
+            margin-top: 0;
+            font-size: 1.35rem;
+        }
+
+        h3 {
+            margin-top: 26px;
+            font-size: 1.05rem;
+        }
+
+        .subtitle {
+            color: var(--muted);
+        }
+
+        .card {
+            margin: 20px 0;
+            padding: 24px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+        }
+
+        .metadata {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+        }
+
+        .metadata-item {
+            padding: 12px;
+            background: #f8fafc;
+            border-radius: 8px;
+        }
+
+        .metadata-label {
+            display: block;
+            color: var(--muted);
+            font-size: 0.82rem;
+            margin-bottom: 3px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .badge-warning {
+            color: var(--warning);
+            background: var(--warning-bg);
+        }
+
+        .badge-success {
+            color: var(--success);
+            background: var(--success-bg);
+        }
+
+        .notice {
+            padding: 16px;
+            border-left: 4px solid #d97706;
+            background: var(--warning-bg);
+            border-radius: 6px;
+        }
+
+        .finding {
+            padding: 14px 16px;
+            margin-top: 12px;
+            background: var(--accent-light);
+            border-radius: 8px;
+        }
+
+        code {
+            padding: 2px 6px;
+            background: #eef2f7;
+            border-radius: 4px;
+            font-family: Consolas, Monaco, monospace;
+            overflow-wrap: anywhere;
+        }
+
+        pre {
+            padding: 14px;
+            overflow-x: auto;
+            background: #0f172a;
+            color: #e2e8f0;
+            border-radius: 8px;
+        }
+
+        pre code {
+            padding: 0;
+            color: inherit;
+            background: none;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        a {
+            color: var(--accent);
+        }
+
+        footer {
+            padding: 24px 0;
+            color: var(--muted);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 18px 10px;
+            }
+
+            .card {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <header>
+        <div class="brand">Caponi IT Lab</div>
+        <h1>INC-001 — Internet Connectivity Issue</h1>
+        <p class="subtitle">
+            Windows 11 troubleshooting case · Network Support
+        </p>
+        <span class="badge badge-warning">Investigation in progress</span>
+    </header>
+
+    <main>
+        <section class="card">
+            <h2>Ticket Information</h2>
+
+            <div class="metadata">
+                <div class="metadata-item">
+                    <span class="metadata-label">Incident ID</span>
+                    <strong>INC-001</strong>
+                </div>
+
+                <div class="metadata-item">
+                    <span class="metadata-label">Category</span>
+                    Network Troubleshooting
+                </div>
+
+                <div class="metadata-item">
+                    <span class="metadata-label">Priority</span>
+                    Medium
+                </div>
+
+                <div class="metadata-item">
+                    <span class="metadata-label">Environment</span>
+                    Windows 11
+                </div>
+
+                <div class="metadata-item">
+                    <span class="metadata-label">Case Type</span>
+                    Lab Simulation
+                </div>
+
+                <div class="metadata-item">
+                    <span class="metadata-label">Status</span>
+                    Investigation in progress
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>1. User Report</h2>
+
+            <p>
+                A user reports that their Windows 11 computer cannot access
+                the internet. The user can access the desktop and open
+                applications, but websites do not load in the browser.
+            </p>
+
+            <div class="notice">
+                <strong>Verification note:</strong>
+                The reported browser symptom has not yet been reproduced
+                or verified.
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>2. Initial Assessment</h2>
+
+            <p>
+                The objective is to determine whether the issue is related
+                to the local TCP/IP stack, Wi-Fi connection, IP configuration,
+                default gateway, external connectivity, DNS resolution,
+                VPN, or browser behavior.
+            </p>
+
+            <p>
+                No network settings were changed during the initial
+                investigation.
+            </p>
+        </section>
+
+        <section class="card">
+            <h2>3. Troubleshooting and Evidence</h2>
+
+            <h3>Step 1 — Inspect IP Configuration</h3>
+
+            <p>Command executed:</p>
+            <pre><code>ipconfig /all</code></pre>
+
+            <ul>
+                <li>Network adapter: MediaTek Wi-Fi 6E MT7922 160MHz Wireless LAN Card</li>
+                <li>IPv4 address: <code>192.168.1.214</code></li>
+                <li>Subnet mask: <code>255.255.255.0</code></li>
+                <li>Default gateway: <code>192.168.1.1</code></li>
+                <li>DHCP server: <code>192.168.1.1</code></li>
+                <li>Wi-Fi DNS servers: <code>193.162.153.164</code> and <code>194.239.134.83</code></li>
+                <li>A Surfshark WireGuard VPN adapter is present.</li>
+            </ul>
+
+            <div class="finding">
+                <strong>Finding:</strong>
+                A valid IPv4 configuration and default gateway are present.
+            </div>
+
+            <h3>Step 2 — Test Local TCP/IP Stack</h3>
+
+            <p>Command executed:</p>
+            <pre><code>ping 127.0.0.1</code></pre>
+
+            <ul>
+                <li>Packets sent: 4</li>
+                <li>Packets received: 4</li>
+                <li>Packet loss: 0%</li>
+            </ul>
+
+            <div class="finding">
+                <strong>Result: PASS.</strong>
+                The local loopback test succeeded.
+            </div>
+
+            <h3>Step 3 — Test Default Gateway</h3>
+
+            <p>Command executed:</p>
+            <pre><code>ping 192.168.1.1</code></pre>
+
+            <ul>
+                <li>Packets sent: 4</li>
+                <li>Packets received: 4</li>
+                <li>Packet loss: 0%</li>
+                <li>Average response time: 3 ms</li>
+            </ul>
+
+            <div class="finding">
+                <strong>Result: PASS.</strong>
+                The computer can communicate with the default gateway.
+            </div>
+
+            <h3>Step 4 — Test External Connectivity</h3>
+
+            <p>Commands executed:</p>
+            <pre><code>ping 1.1.1.1
+ping 8.8.8.8</code></pre>
+
+            <p><strong>Test results:</strong></p>
+            <ul>
+                <li><code>1.1.1.1</code>: 4 packets received, 0% packet loss, average 4 ms.</li>
+                <li><code>8.8.8.8</code>: 4 packets received, 0% packet loss, average 17 ms.</li>
+            </ul>
+
+            <div class="finding">
+                <strong>Result: PASS.</strong>
+                Both public IP addresses responded successfully during testing.
+            </div>
+
+            <h3>Step 5 — Test DNS Resolution</h3>
+
+            <p>Commands executed:</p>
+            <pre><code>nslookup example.com
+nslookup pizza.com</code></pre>
+
+            <p>
+                Both domain names resolved successfully to IPv4 and IPv6
+                addresses.
+            </p>
+
+            <p>
+                The <code>example.com</code> query used DNS server
+                <code>193.162.153.164</code>. The earlier
+                <code>pizza.com</code> query used a Surfshark DNS server.
+            </p>
+
+            <div class="finding">
+                <strong>Result: PASS.</strong>
+                DNS resolution succeeded during the tests.
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>4. Current Findings</h2>
+
+            <p>
+                The local TCP/IP stack, default gateway, external IP
+                connectivity, and DNS resolution tests all succeeded.
+            </p>
+
+            <p>
+                These results demonstrate that network connectivity and
+                DNS resolution were working at the time of testing.
+                They do not prove that every website or browser function
+                works correctly.
+            </p>
+        </section>
+
+        <section class="card">
+            <h2>5. Root Cause</h2>
+
+            <span class="badge badge-warning">Pending investigation</span>
+
+            <p>
+                No root cause has been confirmed. The original browser
+                symptom has not yet been verified.
+            </p>
+
+            <p>
+                Browser behavior and possible VPN-related effects may
+                require further investigation if the issue can be reproduced.
+            </p>
+        </section>
+
+        <section class="card">
+            <h2>6. Resolution</h2>
+
+            <span class="badge badge-warning">Pending investigation</span>
+
+            <p>
+                No configuration changes have been made. The incident
+                cannot yet be considered resolved because the original
+                browser symptom has not been verified.
+            </p>
+        </section>
+
+        <section class="card">
+            <h2>7. Next Steps</h2>
+
+            <ol>
+                <li>Attempt to open <code>https://example.com</code> in the affected browser.</li>
+                <li>Record any browser error message if the page fails to load.</li>
+                <li>If the issue is reproduced, investigate browser-specific behavior and VPN involvement.</li>
+                <li>Update the root cause and resolution only when supported by evidence.</li>
+            </ol>
+        </section>
+
+        <section class="card">
+            <h2>8. Prevention and Lessons Learned</h2>
+
+            <ul>
+                <li>Follow a structured troubleshooting sequence, starting with local connectivity and progressing to the gateway, external IP connectivity, and DNS.</li>
+                <li>Record command output and observations before changing network settings.</li>
+                <li>Do not assume successful ping and DNS tests prove that every website or browser function works.</li>
+                <li>Confirm the reported symptom before closing an incident.</li>
+            </ul>
+        </section>
+
+        <section class="card">
+            <h2>9. Evidence Disclaimer</h2>
+
+            <p>
+                This is a lab simulation using diagnostic results collected
+                from a Windows 11 computer. It is not a verified production
+                customer incident.
+            </p>
+
+            <p>
+                The test results reflect the state of the system at the
+                time of testing.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Caponi IT Lab · IT Support Portfolio</p>
+        <p>
+            <a href="https://www.linkedin.com/in/elia-caponi/"
+               target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            &nbsp;|&nbsp;
+            <a href="https://www.credly.com/badges/daa41bac-129c-45f1-832a-85e2b6be110d/public_url"
+               target="_blank" rel="noopener noreferrer">CompTIA A+ Certification</a>
+        </p>
+        <p>Documented for learning and demonstration purposes.</p>
+    </footer>
+
+</div>
+</body>
+</html>
